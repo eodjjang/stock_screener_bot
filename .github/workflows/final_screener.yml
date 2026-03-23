@@ -16,14 +16,14 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.12' # 최신 라이브러리 지원을 위해 3.12 사용
-      - name: Install Libraries
+      - - name: Install Libraries
         run: |
           pip install --upgrade pip
           pip install setuptools wheel
-          # pandas는 2.x 버전 중 가장 안정적인 버전을 사용합니다.
+          # pandas와 기본 라이브러리들
           pip install "pandas<3.0.0" yfinance finance-datareader
-          # pandas-ta는 가끔 상점에서 못 찾는 경우가 있어 본사 주소로 직접 설치합니다.
-          pip install https://github.com/twopirllc/pandas-ta/archive/refs/heads/master.zip
+          # 주소를 master에서 main으로 수정했습니다!
+          pip install https://github.com/twopirllc/pandas-ta/archive/refs/heads/main.zip
       - name: Run Screener
         run: python screener.py
       - name: Commit and Push
