@@ -1,4 +1,4 @@
-﻿name: Daily Stock Screen
+﻿name: Daily Stock Screen V2
 on:
   schedule:
     - cron: '0 7 * * *'
