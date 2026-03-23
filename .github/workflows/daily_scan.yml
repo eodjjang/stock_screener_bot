@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # 깃허브가 파일 수정 권한을 로봇에게 주도록 설정
     permissions:
       contents: write
       
@@ -18,12 +17,13 @@ jobs:
       - name: 파이썬 설정
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11' # 3.10에서 3.11로 업그레이드!
           
       - name: 필수 라이브러리 설치
         run: |
           pip install --upgrade pip
-          pip install pandas FinanceDataReader pandas_ta yfinance
+          # 이름표를 정확하게 수정했습니다 (소문자와 하이픈)
+          pip install pandas finance-datareader pandas-ta yfinance
           
       - name: 스크리닝 실행
         run: python screener.py
@@ -33,6 +33,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add screener_web/assets/result.json
-          # 변경사항이 있을 때만 저장 (없으면 패스)
           git commit -m "Auto-update: $(date)" || echo "No changes to commit"
           git push
