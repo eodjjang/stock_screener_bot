@@ -1,6 +1,5 @@
 import FinanceDataReader as fdr
 import pandas as pd
-import pandas_ta as ta
 import json
 import time
 
@@ -20,10 +19,19 @@ def analyze_stock(ticker, name):
         if len(df) < 60: return None
         df = df.tail(120).copy()
 
-        # 1. RSI 계산
-        df['RSI'] = ta.rsi(df['Close'], length=14)
+        # 1. RSI 계산 (pandas-ta 없이 순수 pandas로 구현!)
+        delta = df['Close'].diff()
+        gain = delta.where(delta > 0, 0)
+        loss = -delta.where(delta < 0, 0)
         
-        # 2. 볼린저 밴드 계산 (에러 안 나는 순수 공식으로 변경!)
+        # 14일 지수이동평균(Wilder's Smoothing) 적용
+        avg_gain = gain.ewm(alpha=1/14, adjust=False).mean()
+        avg_loss = loss.ewm(alpha=1/14, adjust=False).mean()
+        
+        rs = avg_gain / avg_loss
+        df['RSI'] = 100 - (100 / (1 + rs))
+        
+        # 2. 볼린저 밴드 계산
         df['MA20'] = df['Close'].rolling(window=20).mean()
         df['STD20'] = df['Close'].rolling(window=20).std()
         df['BB_Lower'] = df['MA20'] - (df['STD20'] * 2)

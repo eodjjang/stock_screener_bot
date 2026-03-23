@@ -12,24 +12,26 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: 파이썬 설정 (3.12로 업그레이드)
+      
+      - name: 파이썬 설정 (3.12)
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install Libraries
+          
+      - name: 필수 라이브러리 설치 (pandas-ta 완전 제거)
         run: |
           pip install --upgrade pip
           pip install setuptools wheel
-          # pandas와 기본 라이브러리들
+          # 에러의 원인이었던 pandas-ta를 빼고, 순수 pandas와 데이터 수집용 기본 도구만 설치합니다.
           pip install "pandas<3.0.0" yfinance finance-datareader
-          # 원본 저장소가 삭제되어 커뮤니티 유지보수 버전인 pandas-ta-classic으로 대체 설치합니다!
-          pip install pandas-ta-classic
-      - name: Run Screener
+          
+      - name: 스크리너 봇 실행
         run: python screener.py
-      - name: Commit and Push
+        
+      - name: 결과 파일 깃허브에 자동 저장 (Commit and Push)
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add screener_web/assets/result.json
-          git commit -m "Auto-update: $(date)" || echo "No changes"
+          git commit -m "Auto-update: $(date) - 순수 pandas 스크리닝 결과" || echo "No changes"
           git push
