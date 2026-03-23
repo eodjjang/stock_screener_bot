@@ -1,6 +1,5 @@
 import FinanceDataReader as fdr
 import pandas as pd
-import pandas_ta as ta
 import json
 import time
 
@@ -20,10 +19,18 @@ def analyze_stock(ticker, name):
         if len(df) < 60: return None
         df = df.tail(120).copy()
 
-        # 1. RSI 계산
-        df['RSI'] = ta.rsi(df['Close'], length=14)
+        # 1. RSI 계산 (pandas_ta 없이 순수 pandas로 완벽 교체!)
+        delta = df['Close'].diff()
+        gain = delta.where(delta > 0, 0)
+        loss = -delta.where(delta < 0, 0)
         
-        # 2. 볼린저 밴드 계산 (에러 안 나는 순수 공식으로 변경!)
+        avg_gain = gain.ewm(alpha=1/14, adjust=False).mean()
+        avg_loss = loss.ewm(alpha=1/14, adjust=False).mean()
+        
+        rs = avg_gain / avg_loss
+        df['RSI'] = 100 - (100 / (1 + rs))
+        
+        # 2. 볼린저 밴드 계산
         df['MA20'] = df['Close'].rolling(window=20).mean()
         df['STD20'] = df['Close'].rolling(window=20).std()
         df['BB_Lower'] = df['MA20'] - (df['STD20'] * 2)
@@ -64,11 +71,13 @@ def analyze_stock(ticker, name):
 
 if __name__ == "__main__":
     print("📊 한국거래소 서버에서 코스피/코스닥 최신 리스트를 불러옵니다...")
-    kospi_500 = get_top_100_stocks('KOSPI')
-    kosdaq_100 = get_top_100_stocks('KOSDAQ')
-    target_stocks = kospi_100 + kosdaq_100
+    
+    # 1000종목 검사 유지!
+    kospi_500 = get_top_500_stocks('KOSPI')
+    kosdaq_500 = get_top_500_stocks('KOSDAQ')
+    target_stocks = kospi_500 + kosdaq_500
 
-    print(f"🚀 총 {len(target_stocks)}개 우량주 스크리닝을 시작합니다. (약 1~2분 소요 예정)")
+    print(f"🚀 총 {len(target_stocks)}개 우량주 스크리닝을 시작합니다. (약 15~20분 소요 예정)")
     
     final_list = []
     count = 0
@@ -83,6 +92,7 @@ if __name__ == "__main__":
             final_list.append(res)
             print(f"🚨 포착!!! {s['name']} (단계: {res['step']}, RSI: {res['rsi']})")
 
+    # 결과 저장 위치를 웹사이트 폴더로 정확히 지정
     with open('screener_web/assets/result.json', 'w', encoding='utf-8') as f:
         json.dump(final_list, f, ensure_ascii=False, indent=4)
     
