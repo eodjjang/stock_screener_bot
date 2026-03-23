@@ -1,9 +1,9 @@
-﻿name: Daily Stock Screen V2
+name: Final Stock Screener
 
 on:
   schedule:
-    - cron: '0 7 * * *' # 매일 오후 4시 (한국 시간)
-  workflow_dispatch: # ⭐ 이 줄이 버튼을 만드는 핵심입니다! (뒤에 아무것도 안 붙임)
+    - cron: '0 7 * * *'
+  workflow_dispatch: # ← 이 줄이 버튼을 만듭니다.
 
 jobs:
   build:
