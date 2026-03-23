@@ -3,7 +3,7 @@ name: Final Stock Screener
 on:
   schedule:
     - cron: '0 7 * * *'
-  workflow_dispatch: # ← 이 줄이 버튼을 만듭니다.
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -12,14 +12,18 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: 파이썬 설정 (3.12로 업그레이드)
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.12' # 최신 라이브러리 지원을 위해 3.12 사용
       - name: Install Libraries
         run: |
           pip install --upgrade pip
-          # pandas 버전을 2.2.2 이하로 제한하여 충돌을 방지합니다.
-          pip install "pandas<3.0.0" finance-datareader pandas-ta yfinance
+          pip install setuptools wheel
+          # pandas는 2.x 버전 중 가장 안정적인 버전을 사용합니다.
+          pip install "pandas<3.0.0" yfinance finance-datareader
+          # pandas-ta는 가끔 상점에서 못 찾는 경우가 있어 본사 주소로 직접 설치합니다.
+          pip install https://github.com/twopirllc/pandas-ta/archive/refs/heads/master.zip
       - name: Run Screener
         run: python screener.py
       - name: Commit and Push
