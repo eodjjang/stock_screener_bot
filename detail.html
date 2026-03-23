@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>종목 상세 차트</title>
+    <title>종목 상세 분석</title>
     <style>
         :root {
             --binance-yellow: #FCD535;
             --bg-color: #FAFAFA;
             --text-dark: #1E2329;
+            --text-gray: #707A8A;
             --card-bg: #FFFFFF;
             --border-color: #EAECEF;
         }
@@ -19,35 +20,46 @@
         }
         header {
             background-color: var(--card-bg);
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
+            padding: 15px 20px; display: flex; align-items: center;
             border-bottom: 1px solid var(--border-color);
             position: sticky; top: 0; z-index: 100;
         }
         .back-btn {
             background: none; border: none; font-size: 20px;
-            margin-right: 15px; cursor: pointer; color: var(--text-dark);
+            margin-right: 15px; cursor: pointer; color: var(--text-dark); padding: 0;
         }
         h1 { font-size: 18px; margin: 0; display: flex; align-items: center; gap: 8px;}
         .ticker-badge {
             font-size: 12px; background-color: #F0F2F5;
             padding: 3px 8px; border-radius: 4px; color: #707A8A;
         }
-        main { padding: 15px; max-width: 1200px; margin: 0 auto; }
-        .chart-container {
+        main { padding: 20px; max-width: 600px; margin: 0 auto; }
+        
+        .info-card {
             background-color: var(--card-bg);
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
+            padding: 40px 20px;
+            text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            height: 400px; /* 차트 높이 */
+            margin-bottom: 20px;
         }
-        .chart-title { font-size: 16px; font-weight: bold; margin-bottom: 10px; color: var(--text-dark); }
+        .icon { font-size: 45px; margin-bottom: 15px; }
+        .notice-title { font-size: 18px; font-weight: bold; margin-bottom: 12px; }
+        .notice-desc { font-size: 14px; color: var(--text-gray); line-height: 1.6; margin-bottom: 30px; word-break: keep-all;}
+        
+        .action-btn {
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; padding: 16px; border-radius: 10px;
+            font-size: 15px; font-weight: bold; text-decoration: none;
+            margin-bottom: 12px; transition: transform 0.2s, opacity 0.2s; box-sizing: border-box;
+        }
+        .btn-naver { background-color: #03C75A; color: white; box-shadow: 0 4px 10px rgba(3, 199, 90, 0.2); }
+        .btn-tv { background-color: #131722; color: white; box-shadow: 0 4px 10px rgba(19, 23, 34, 0.2); }
+        
+        .action-btn:hover { transform: translateY(-2px); opacity: 0.95; }
     </style>
 </head>
 <body>
-
     <header>
         <button class="back-btn" onclick="history.back()">←</button>
         <h1 id="stock-name">로딩중...</h1>
@@ -55,20 +67,26 @@
     </header>
 
     <main>
-        <div class="chart-container">
-            <div class="chart-title">📊 일봉 차트 (최근 30일 흐름)</div>
-            <div id="tv_daily" style="height: 100%; width: 100%;"></div>
-        </div>
+        <div class="info-card">
+            <div class="icon">📊</div>
+            <div class="notice-title">전문 차트로 이동합니다</div>
+            <div class="notice-desc">
+                한국거래소(KRX)의 데이터 저작권 보호 정책으로 인해, 외부 웹사이트에 실시간/분봉 차트를 직접 표시하는 것이 제한되어 있습니다.<br><br>
+                아래 버튼을 클릭하시면 RSI와 볼린저밴드 확인이 가능한 <b>가장 정확한 전문 차트</b>로 즉시 연결됩니다!
+            </div>
 
-        <div class="chart-container">
-            <div class="chart-title">⚡ 1분봉 차트 (단기 흐름)</div>
-            <div id="tv_1min" style="height: 100%; width: 100%;"></div>
+            <a href="#" id="link-naver" class="action-btn btn-naver" target="_blank">
+                🟢 네이버 증권에서 상세 차트 보기
+            </a>
+            
+            <a href="#" id="link-tv" class="action-btn btn-tv" target="_blank">
+                ⚫ 트레이딩뷰에서 전문 차트 보기
+            </a>
         </div>
     </main>
 
-    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script>
-        // 1. 앞 페이지(index.html)에서 넘어온 종목 정보(이름, 코드) 가져오기
+        // 앞 페이지에서 넘어온 종목 이름과 코드 가져오기
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name') || '종목상세';
         const ticker = urlParams.get('ticker');
@@ -76,46 +94,11 @@
         document.getElementById('stock-name').textContent = name;
         document.getElementById('stock-ticker').textContent = ticker;
 
-        // 2. 한국 주식 코드를 트레이딩뷰 형식(KRX:005930)으로 변환
-        const tvSymbol = "KRX:" + ticker;
-
-        // 3. 차트에 적용할 보조지표 설정 (거래량, 볼린저밴드, RSI)
-        const studies = [
-            "Volume@tv-basicstudies",      // 거래량
-            "BB@tv-basicstudies",          // 볼린저밴드
-            "RSI@tv-basicstudies"          // RSI
-        ];
-
-        // 일봉(D) 차트 그리기
-        if (ticker) {
-            new TradingView.widget({
-                "autosize": true,
-                "symbol": tvSymbol,
-                "interval": "D",           // D: 일봉
-                "timezone": "Asia/Seoul",
-                "theme": "light",
-                "style": "1",              // 1: 캔들 차트
-                "locale": "kr",
-                "enable_publishing": false,
-                "hide_top_toolbar": false,
-                "container_id": "tv_daily",
-                "studies": studies
-            });
-
-            // 1분봉(1) 차트 그리기
-            new TradingView.widget({
-                "autosize": true,
-                "symbol": tvSymbol,
-                "interval": "1",           // 1: 1분봉
-                "timezone": "Asia/Seoul",
-                "theme": "light",
-                "style": "1",
-                "locale": "kr",
-                "enable_publishing": false,
-                "hide_top_toolbar": false,
-                "container_id": "tv_1min",
-                "studies": studies
-            });
+        if(ticker) {
+            // 네이버 증권(모바일 최적화 화면) 해당 종목 차트로 즉시 연결
+            document.getElementById('link-naver').href = `https://m.stock.naver.com/domestic/stock/${ticker}/total`;
+            // 트레이딩뷰 해당 종목 차트로 즉시 연결
+            document.getElementById('link-tv').href = `https://kr.tradingview.com/chart/?symbol=KRX:${ticker}`;
         }
     </script>
 </body>
