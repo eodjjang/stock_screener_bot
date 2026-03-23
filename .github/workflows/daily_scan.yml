@@ -1,22 +1,38 @@
 ﻿name: Daily Stock Screen
+
 on:
   schedule:
-    - cron: '0 7 * * *'
+    - cron: '0 7 * * *' # 매일 오후 4시 실행 (한국 시간)
   workflow_dispatch: 
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    # 깃허브가 파일 수정 권한을 로봇에게 주도록 설정
+    permissions:
+      contents: write
+      
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      
+      - name: 파이썬 설정
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - run: pip install pandas FinanceDataReader pandas_ta
-      - run: python screener.py
-      - name: Commit and Push
+          
+      - name: 필수 라이브러리 설치
+        run: |
+          pip install --upgrade pip
+          pip install pandas FinanceDataReader pandas_ta yfinance
+          
+      - name: 스크리닝 실행
+        run: python screener.py
+        
+      - name: 변경사항 저장 및 전송
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add screener_web/assets/result.json
-          git commit -m "Auto-update: \03/23/2026 20:10:23" || echo "No changes"
+          # 변경사항이 있을 때만 저장 (없으면 패스)
+          git commit -m "Auto-update: $(date)" || echo "No changes to commit"
           git push
