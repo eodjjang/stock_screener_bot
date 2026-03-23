@@ -18,7 +18,8 @@ jobs:
       - name: Install Libraries
         run: |
           pip install --upgrade pip
-          pip install pandas finance-datareader pandas-ta yfinance
+          # pandas 버전을 2.2.2 이하로 제한하여 충돌을 방지합니다.
+          pip install "pandas<3.0.0" finance-datareader pandas-ta yfinance
       - name: Run Screener
         run: python screener.py
       - name: Commit and Push
