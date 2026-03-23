@@ -1,0 +1,35 @@
+name: Daily Stock Screen
+
+on:
+  schedule:
+    # 매일 한국 시간 오후 4시 (UTC 07:00)에 실행
+    - cron: '0 7 * * *'
+  workflow_dispatch: # 수동으로도 실행 가능하게 설정
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v3
+
+      - name: 파이썬 설정
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 라이브러리 설치
+        run: |
+          pip install pandas FinanceDataReader pandas_ta
+
+      - name: 스크리닝 실행
+        run: |
+          python screener.py
+
+      - name: 결과 업데이트 및 저장
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add screener_web/assets/result.json
+          git commit -m "Auto-update stock results: $(date +'%Y-%m-%d')" || echo "No changes to commit"
+          git push
