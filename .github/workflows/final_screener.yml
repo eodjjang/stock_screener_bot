@@ -15,15 +15,15 @@ jobs:
       - name: 파이썬 설정 (3.12로 업그레이드)
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12' # 최신 라이브러리 지원을 위해 3.12 사용
+          python-version: '3.12'
       - name: Install Libraries
         run: |
           pip install --upgrade pip
           pip install setuptools wheel
           # pandas와 기본 라이브러리들
           pip install "pandas<3.0.0" yfinance finance-datareader
-          # 주소를 master에서 main으로 수정했습니다!
-          pip install https://github.com/twopirllc/pandas-ta/archive/refs/heads/main.zip
+          # 원본 저장소가 삭제되어 커뮤니티 유지보수 버전인 pandas-ta-classic으로 대체 설치합니다!
+          pip install pandas-ta-classic
       - name: Run Screener
         run: python screener.py
       - name: Commit and Push
