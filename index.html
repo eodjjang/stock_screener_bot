@@ -2,70 +2,424 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘의 찐바닥 우량주</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>오늘의 찐바닥 우량주 포착</title>
     <style>
-        body { font-family: '맑은 고딕', sans-serif; background-color: #f4f7f6; padding: 20px; color: #333; }
-        h1 { text-align: center; margin-bottom: 5px; }
-        .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
-        table { width: 100%; max-width: 800px; margin: 0 auto; background: white; border-collapse: collapse; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
-        th, td { padding: 15px; text-align: center; border-bottom: 1px solid #eee; }
-        th { background-color: #2c3e50; color: white; font-weight: bold; }
-        tr:hover { background-color: #f1f5f9; }
-        .rsi-low { color: #e74c3c; font-weight: bold; }
+        /* 바이낸스 앱 느낌의 색상 팔레트 */
+        :root {
+            --binance-yellow: #FCD535;
+            --bg-color: #FAFAFA;
+            --text-dark: #1E2329;
+            --text-gray: #707A8A;
+            --card-bg: #FFFFFF;
+            --border-color: #EAECEF;
+            --red-point: #E74C3C;
+            --green-point: #27AE60;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 최상단 헤더 */
+        header {
+            background-color: var(--card-bg);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 18px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        header h1 span { color: var(--binance-yellow); }
+
+        .last-update {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        /* 메인 컨테이너 */
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 상단 검색 바 */
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: var(--card-bg);
+            transition: border-color 0.2s;
+            box-sizing: border-box;
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color: var(--binance-yellow);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+            font-size: 16px;
+        }
+
+        /* 오늘의 요약 카드 */
+        #summary-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #summary-card h2 {
+            font-size: 16px;
+            margin: 0;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        #total-count {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 5px 0 0 0;
+        }
+
+        #summary-card button {
+            background-color: var(--binance-yellow);
+            color: var(--text-dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        #summary-card button:hover { opacity: 0.8; }
+
+        /* 주식 카드 그리드 */
+        .stock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* 개별 주식 카드 스타일 */
+        .stock-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .stock-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-color: var(--border-color);
+        }
+
+        /* 카드 상단: 종목명, 코드 */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .stock-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .stock-ticker {
+            font-size: 12px;
+            color: var(--text-gray);
+            background-color: #F0F2F5;
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+
+        /* 카드 중단: 현재가 */
+        .card-body {
+            margin-bottom: 20px;
+        }
+
+        .current-price {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .current-price span { font-size: 14px; font-weight: normal; margin-left: 2px; }
+
+        /* 카드 하단: RSI 시각화 게이지 */
+        .card-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .rsi-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .rsi-value { font-weight: bold; font-size: 14px; }
+        .rsi-value.low { color: var(--red-point); } /* RSI 30 이하 */
+
+        .rsi-gauge-bg {
+            width: 100%;
+            height: 6px;
+            background-color: #F0F2F5;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .rsi-gauge-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FAD02C 0%, #F5A623 100%);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        /* RSI 30 이하 빨간색 */
+        .rsi-gauge-bar.low {
+            background: var(--red-point);
+        }
+
+        .rsi-gauge-markers {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #C0C9D1;
+            margin-top: -2px;
+        }
+
+        /* 조건 단계 뱃지 */
+        .step-badge {
+            font-size: 11px;
+            color: var(--card-bg);
+            background-color: var(--text-gray);
+            padding: 3px 8px;
+            border-radius: 10px;
+            margin-top: 5px;
+            display: inline-block;
+        }
+
+        /* 에러 메시지 스타일 */
+        .error-message {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            color: var(--text-gray);
+            background-color: var(--card-bg);
+            border-radius: 12px;
+        }
+
+        /* 로딩 애니메이션 */
+        .loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            color: var(--text-gray);
+        }
+
+        .spinner {
+            border: 4px solid #F0F2F5;
+            border-top: 4px solid var(--binance-yellow);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
     </style>
 </head>
 <body>
 
-    <h1>🚀 오늘의 찐바닥 우량주 포착</h1>
-    <p class="subtitle">매일 오후 4시(한국시간) 자동 스크리닝</p>
+    <header>
+        <h1><span>🚀</span> 오늘의 찐바닥 우량주</h1>
+        <div class="last-update" id="update-time">마지막 업데이트: --</div>
+    </header>
 
-    <table>
-        <thead>
-            <tr>
-                <th>종목코드</th>
-                <th>종목명</th>
-                <th>현재가</th>
-                <th>RSI</th>
-                <th>조건단계</th>
-            </tr>
-        </thead>
-        <tbody id="stock-list">
-            </tbody>
-    </table>
+    <main>
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="search" id="search-input" placeholder="종목명 또는 코드를 검색하세요...">
+        </div>
+
+        <div id="summary-card">
+            <div>
+                <h2>오늘 포착된 찐바닥 후보</h2>
+                <p id="total-count">0</p>
+            </div>
+            <button id="refresh-btn">새로고침</button>
+        </div>
+
+        <div class="stock-grid" id="stock-list">
+            <div class="loading"><div class="spinner"></div>데이터를 불러오는 중...</div>
+        </div>
+    </main>
 
     <script>
-        // 로봇이 저장한 result.json 데이터를 불러오는 마법의 코드
-        fetch('./screener_web/assets/result.json')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('stock-list');
-                
-                // 포착된 종목이 없을 경우
-                if(data.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="5">오늘 포착된 찐바닥 종목이 없습니다 😢</td></tr>';
-                    return;
-                }
+        // 데이터 로딩 및 검색 기능
+        const stockListContainer = document.getElementById('stock-list');
+        const searchInput = document.getElementById('search-input');
+        const totalCountElement = document.getElementById('total-count');
+        const updateTimeElement = document.getElementById('update-time');
+        const refreshBtn = document.getElementById('refresh-btn');
+        let allStocksData = []; // 원본 데이터를 저장할 변수
 
-                // 데이터가 있으면 표에 한 줄씩 추가
-                data.forEach(stock => {
-                    const price = stock.price.toLocaleString(); // 숫자에 쉼표 찍기
-                    const rsiClass = stock.rsi <= 30 ? 'rsi-low' : ''; // RSI가 30 이하면 빨간색
-                    
-                    const row = `<tr>
-                        <td>${stock.ticker}</td>
-                        <td><strong>${stock.name}</strong></td>
-                        <td>${price}원</td>
-                        <td class="${rsiClass}">${stock.rsi}</td>
-                        <td>${stock.step}단계</td>
-                    </tr>`;
-                    tableBody.innerHTML += row;
-                });
-            })
-            .catch(error => {
-                document.getElementById('stock-list').innerHTML = '<tr><td colspan="5">데이터를 아직 불러오지 못했습니다. 로봇이 스크리닝 중이거나 에러가 발생했습니다.</td></tr>';
+        // 한국 시간 포맷 함수
+        function formatUpdateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}`;
+        }
+
+        // 개별 주식 카드 HTML 생성 함수 (여기에 클릭 링크가 추가되었습니다!)
+        function createStockCard(stock) {
+            const price = stock.price.toLocaleString(); // 숫자에 쉼표 찍기
+            const rsiValue = stock.rsi.toFixed(2);
+            const rsiClass = stock.rsi <= 30 ? 'low' : ''; // RSI 30 이하면 빨간색
+
+            return `
+                <div class="stock-card" onclick="location.href='detail.html?ticker=${stock.ticker}&name=${stock.name}'">
+                    <div class="card-header">
+                        <div>
+                            <p class="stock-name">${stock.name}</p>
+                            <span class="step-badge">${stock.step}단계 포착</span>
+                        </div>
+                        <span class="stock-ticker">${stock.ticker}</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="current-price">${price}<span>원</span></p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="rsi-label">
+                            <span>RSI</span>
+                            <span class="rsi-value ${rsiClass}">${rsiValue}</span>
+                        </div>
+                        <div class="rsi-gauge-bg">
+                            <div class="rsi-gauge-bar ${rsiClass}" style="width: ${stock.rsi}%"></div>
+                        </div>
+                        <div class="rsi-gauge-markers">
+                            <span>0</span>
+                            <span>50</span>
+                            <span>100</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 화면에 종목 리스트를 렌더링하는 함수
+        function renderStockList(stocks) {
+            stockListContainer.innerHTML = ''; // 기존 내용 지우기
+            if (stocks.length === 0) {
+                stockListContainer.innerHTML = '<div class="error-message">포착된 종목이 없거나 검색 결과가 없습니다. 🏜️</div>';
+                return;
+            }
+            stocks.forEach(stock => {
+                stockListContainer.innerHTML += createStockCard(stock);
             });
-    </script>
+        }
 
+        // 로봇이 저장한 result.json 데이터를 불러오는 메인 함수
+        function loadStockData() {
+            stockListContainer.innerHTML = '<div class="loading"><div class="spinner"></div>데이터를 불러오는 중...</div>';
+            
+            // 이전 답변에서 약속한 데이터 경로
+            fetch('./screener_web/assets/result.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('데이터 파일을 찾을 수 없습니다.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    allStocksData = data; // 원본 데이터 저장
+                    totalCountElement.textContent = data.length;
+                    updateTimeElement.textContent = `마지막 업데이트: ${formatUpdateTime()}`;
+                    renderStockList(data); // 화면에 출력
+                })
+                .catch(error => {
+                    stockListContainer.innerHTML = '<div class="error-message">데이터를 불러오지 못했습니다. <br>로봇이 스크리닝 중이거나 에러가 발생했습니다. 🤔<br><small>(' + error.message + ')</small></div>';
+                    console.error('Fetch error:', error);
+                });
+        }
+
+        // 검색 이벤트 리스너 (직관적인 필터링)
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            if (!searchTerm) {
+                renderStockList(allStocksData); // 검색어가 없으면 전체 출력
+                return;
+            }
+            const filteredStocks = allStocksData.filter(stock => 
+                stock.name.toLowerCase().includes(searchTerm) || 
+                stock.ticker.toLowerCase().includes(searchTerm)
+            );
+            renderStockList(filteredStocks); // 필터링된 결과 출력
+        });
+
+        // 새로고침 버튼 이벤트
+        refreshBtn.addEventListener('click', loadStockData);
+
+        // 초기 로딩
+        loadStockData();
+
+    </script>
 </body>
 </html>
