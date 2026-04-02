@@ -3,49 +3,112 @@
         "ticker": "329180",
         "name": "HD현대중공업",
         "step": 2,
-        "price": 451500,
-        "rsi": 28.82
+        "price": 439000,
+        "rsi": 27.16
+    },
+    {
+        "ticker": "352820",
+        "name": "하이브",
+        "step": 2,
+        "price": 268500,
+        "rsi": 27.08
+    },
+    {
+        "ticker": "029780",
+        "name": "삼성카드",
+        "step": 2,
+        "price": 51600,
+        "rsi": 29.04
+    },
+    {
+        "ticker": "000640",
+        "name": "동아쏘시오홀딩스",
+        "step": 2,
+        "price": 93300,
+        "rsi": 28.79
     },
     {
         "ticker": "381970",
         "name": "케이카",
         "step": 2,
-        "price": 11630,
-        "rsi": 17.0
+        "price": 10790,
+        "rsi": 13.98
     },
     {
-        "ticker": "128820",
-        "name": "대성산업",
-        "step": 3,
-        "price": 6900,
-        "rsi": 41.03
+        "ticker": "091810",
+        "name": "티웨이항공",
+        "step": 2,
+        "price": 830,
+        "rsi": 28.68
     },
     {
-        "ticker": "003960",
-        "name": "사조대림",
+        "ticker": "005010",
+        "name": "휴스틸",
         "step": 3,
-        "price": 32250,
-        "rsi": 41.72
+        "price": 5690,
+        "rsi": 67.82
     },
     {
-        "ticker": "044450",
-        "name": "KSS해운",
-        "step": 3,
-        "price": 10970,
-        "rsi": 56.24
+        "ticker": "034120",
+        "name": "SBS",
+        "step": 2,
+        "price": 15190,
+        "rsi": 29.79
+    },
+    {
+        "ticker": "053210",
+        "name": "스카이라이프",
+        "step": 2,
+        "price": 4675,
+        "rsi": 29.94
+    },
+    {
+        "ticker": "035760",
+        "name": "CJ ENM",
+        "step": 2,
+        "price": 53800,
+        "rsi": 27.62
     },
     {
         "ticker": "160190",
         "name": "하이젠알앤엠",
         "step": 2,
-        "price": 35950,
-        "rsi": 29.09
+        "price": 33800,
+        "rsi": 27.32
     },
     {
-        "ticker": "078130",
-        "name": "국일제지",
+        "ticker": "122870",
+        "name": "와이지엔터테인먼트",
+        "step": 2,
+        "price": 50800,
+        "rsi": 27.9
+    },
+    {
+        "ticker": "033790",
+        "name": "피노",
         "step": 3,
-        "price": 325,
-        "rsi": 53.82
+        "price": 9350,
+        "rsi": 74.91
+    },
+    {
+        "ticker": "304360",
+        "name": "에스바이오메딕스",
+        "step": 2,
+        "price": 24950,
+        "rsi": 28.98
+    },
+    {
+        "ticker": "194480",
+        "name": "데브시스터즈",
+        "step": 2,
+        "price": 23400,
+        "rsi": 29.27
+    },
+    {
+        "ticker": "068930",
+        "name": "디지털대성",
+        "step": 2,
+        "price": 8000,
+        "rsi": 28.63
     }
 ]
