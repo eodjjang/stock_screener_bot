@@ -1,436 +1,352 @@
 [
     {
-        "ticker": "005385",
-        "name": "현대차우",
+        "ticker": "055550",
+        "name": "신한지주",
         "step": 3,
-        "price": 221000,
-        "rsi": 40.46
+        "price": 102200,
+        "rsi": 56.46
+    },
+    {
+        "ticker": "015760",
+        "name": "한국전력",
+        "step": 3,
+        "price": 38150,
+        "rsi": 48.61
+    },
+    {
+        "ticker": "316140",
+        "name": "우리금융지주",
+        "step": 3,
+        "price": 30200,
+        "rsi": 49.17
+    },
+    {
+        "ticker": "003550",
+        "name": "LG",
+        "step": 3,
+        "price": 99000,
+        "rsi": 42.62
+    },
+    {
+        "ticker": "030200",
+        "name": "KT",
+        "step": 3,
+        "price": 54300,
+        "rsi": 49.65
     },
     {
         "ticker": "088980",
         "name": "맥쿼리인프라",
         "step": 2,
-        "price": 10030,
-        "rsi": 22.91
+        "price": 9940,
+        "rsi": 21.47
     },
     {
-        "ticker": "069620",
-        "name": "대웅제약",
+        "ticker": "028670",
+        "name": "팬오션",
         "step": 3,
-        "price": 118300,
-        "rsi": 46.14
+        "price": 4970,
+        "rsi": 46.98
+    },
+    {
+        "ticker": "008930",
+        "name": "한미사이언스",
+        "step": 3,
+        "price": 31250,
+        "rsi": 52.65
+    },
+    {
+        "ticker": "282330",
+        "name": "BGF리테일",
+        "step": 3,
+        "price": 119500,
+        "rsi": 46.42
+    },
+    {
+        "ticker": "008770",
+        "name": "호텔신라",
+        "step": 3,
+        "price": 50300,
+        "rsi": 45.12
+    },
+    {
+        "ticker": "020560",
+        "name": "아시아나항공",
+        "step": 3,
+        "price": 7470,
+        "rsi": 53.19
+    },
+    {
+        "ticker": "007310",
+        "name": "오뚜기",
+        "step": 3,
+        "price": 319000,
+        "rsi": 48.6
     },
     {
         "ticker": "001430",
         "name": "세아베스틸지주",
         "step": 2,
-        "price": 34450,
-        "rsi": 29.33
+        "price": 31700,
+        "rsi": 26.53
     },
     {
-        "ticker": "330590",
-        "name": "롯데리츠",
+        "ticker": "000080",
+        "name": "하이트진로",
         "step": 3,
-        "price": 3600,
-        "rsi": 44.61
+        "price": 15120,
+        "rsi": 45.22
     },
     {
-        "ticker": "030190",
-        "name": "NICE평가정보",
+        "ticker": "137310",
+        "name": "에스디바이오센서",
         "step": 3,
-        "price": 13880,
-        "rsi": 47.16
+        "price": 6540,
+        "rsi": 41.7
     },
     {
-        "ticker": "002020",
-        "name": "코오롱",
+        "ticker": "093050",
+        "name": "LF",
         "step": 3,
-        "price": 48200,
-        "rsi": 41.59
+        "price": 23500,
+        "rsi": 57.55
     },
     {
-        "ticker": "002960",
-        "name": "한국쉘석유",
+        "ticker": "293940",
+        "name": "신한알파리츠",
         "step": 3,
-        "price": 477500,
-        "rsi": 45.05
+        "price": 5220,
+        "rsi": 44.78
     },
     {
-        "ticker": "003300",
-        "name": "한일홀딩스",
+        "ticker": "016380",
+        "name": "KG스틸",
         "step": 3,
-        "price": 16510,
-        "rsi": 50.03
+        "price": 5300,
+        "rsi": 42.22
     },
     {
-        "ticker": "090435",
-        "name": "아모레퍼시픽우",
+        "ticker": "058650",
+        "name": "세아홀딩스",
+        "step": 2,
+        "price": 111000,
+        "rsi": 29.47
+    },
+    {
+        "ticker": "029530",
+        "name": "신도리코",
         "step": 3,
-        "price": 40100,
-        "rsi": 60.9
+        "price": 40450,
+        "rsi": 42.65
     },
     {
         "ticker": "003280",
         "name": "흥아해운",
-        "step": 3,
-        "price": 1647,
-        "rsi": 30.56
+        "step": 2,
+        "price": 1633,
+        "rsi": 29.99
     },
     {
-        "ticker": "344820",
-        "name": "KCC글라스",
+        "ticker": "027410",
+        "name": "BGF",
         "step": 3,
-        "price": 23000,
-        "rsi": 47.35
+        "price": 3955,
+        "rsi": 41.88
     },
     {
-        "ticker": "002810",
-        "name": "삼영무역",
+        "ticker": "005950",
+        "name": "이수화학",
         "step": 3,
-        "price": 19760,
-        "rsi": 45.15
+        "price": 13550,
+        "rsi": 53.41
     },
     {
-        "ticker": "306200",
-        "name": "세아제강",
+        "ticker": "003120",
+        "name": "일성아이에스",
         "step": 3,
-        "price": 125700,
-        "rsi": 38.52
+        "price": 19100,
+        "rsi": 43.25
     },
     {
-        "ticker": "183190",
-        "name": "아세아시멘트",
-        "step": 3,
-        "price": 9700,
-        "rsi": 49.07
-    },
-    {
-        "ticker": "018250",
-        "name": "애경산업",
-        "step": 3,
-        "price": 11260,
-        "rsi": 43.36
-    },
-    {
-        "ticker": "004360",
-        "name": "세방",
-        "step": 3,
-        "price": 12390,
-        "rsi": 36.57
-    },
-    {
-        "ticker": "475560",
-        "name": "더본코리아",
-        "step": 3,
-        "price": 14930,
-        "rsi": 38.94
-    },
-    {
-        "ticker": "037270",
-        "name": "YG PLUS",
-        "step": 3,
-        "price": 3455,
-        "rsi": 42.47
-    },
-    {
-        "ticker": "033920",
-        "name": "무학",
-        "step": 3,
-        "price": 7560,
-        "rsi": 44.3
-    },
-    {
-        "ticker": "035150",
-        "name": "백산",
+        "ticker": "009680",
+        "name": "모토닉",
         "step": 3,
         "price": 9990,
-        "rsi": 43.56
+        "rsi": 50.54
     },
     {
-        "ticker": "214370",
-        "name": "케어젠",
-        "step": 3,
-        "price": 76200,
-        "rsi": 49.0
-    },
-    {
-        "ticker": "035900",
-        "name": "JYP Ent.",
-        "step": 3,
-        "price": 53200,
-        "rsi": 47.17
-    },
-    {
-        "ticker": "038500",
-        "name": "삼표시멘트",
-        "step": 3,
-        "price": 9140,
-        "rsi": 36.35
-    },
-    {
-        "ticker": "241710",
-        "name": "코스메카코리아",
-        "step": 3,
-        "price": 80600,
-        "rsi": 62.58
-    },
-    {
-        "ticker": "014620",
-        "name": "성광벤드",
-        "step": 3,
-        "price": 30400,
-        "rsi": 48.71
-    },
-    {
-        "ticker": "048410",
-        "name": "현대바이오",
-        "step": 3,
-        "price": 8330,
-        "rsi": 39.38
-    },
-    {
-        "ticker": "027360",
-        "name": "아주IB투자",
+        "ticker": "128820",
+        "name": "대성산업",
         "step": 2,
-        "price": 5120,
-        "rsi": 28.76
+        "price": 4250,
+        "rsi": 29.51
     },
     {
-        "ticker": "053800",
-        "name": "안랩",
-        "step": 3,
-        "price": 53900,
-        "rsi": 40.06
+        "ticker": "101490",
+        "name": "에스앤에스텍",
+        "step": 2,
+        "price": 48700,
+        "rsi": 29.31
+    },
+    {
+        "ticker": "100790",
+        "name": "미래에셋벤처투자",
+        "step": 2,
+        "price": 17550,
+        "rsi": 28.24
+    },
+    {
+        "ticker": "189300",
+        "name": "인텔리안테크",
+        "step": 2,
+        "price": 72900,
+        "rsi": 29.71
+    },
+    {
+        "ticker": "490470",
+        "name": "세미파이브",
+        "step": 2,
+        "price": 19310,
+        "rsi": 28.4
     },
     {
         "ticker": "052020",
         "name": "에스티큐브",
         "step": 2,
-        "price": 8750,
-        "rsi": 27.66
+        "price": 8280,
+        "rsi": 25.56
+    },
+    {
+        "ticker": "027360",
+        "name": "아주IB투자",
+        "step": 2,
+        "price": 4500,
+        "rsi": 26.33
+    },
+    {
+        "ticker": "056080",
+        "name": "유진로봇",
+        "step": 2,
+        "price": 13780,
+        "rsi": 29.33
+    },
+    {
+        "ticker": "365340",
+        "name": "성일하이텍",
+        "step": 2,
+        "price": 39250,
+        "rsi": 27.3
     },
     {
         "ticker": "124500",
         "name": "아이티센글로벌",
         "step": 2,
-        "price": 23400,
-        "rsi": 27.03
+        "price": 21500,
+        "rsi": 25.1
     },
     {
-        "ticker": "060250",
-        "name": "NHN KCP",
-        "step": 3,
-        "price": 13230,
-        "rsi": 38.87
-    },
-    {
-        "ticker": "376300",
-        "name": "디어유",
-        "step": 3,
-        "price": 21800,
-        "rsi": 43.98
-    },
-    {
-        "ticker": "101930",
-        "name": "인화정공",
-        "step": 3,
-        "price": 8120,
-        "rsi": 41.67
-    },
-    {
-        "ticker": "393890",
-        "name": "더블유씨피",
-        "step": 3,
-        "price": 10850,
-        "rsi": 39.1
-    },
-    {
-        "ticker": "064260",
-        "name": "다날",
-        "step": 3,
-        "price": 4430,
-        "rsi": 34.15
-    },
-    {
-        "ticker": "455900",
-        "name": "엔젤로보틱스",
-        "step": 3,
-        "price": 20700,
-        "rsi": 41.03
-    },
-    {
-        "ticker": "314930",
-        "name": "바이오다인",
-        "step": 3,
-        "price": 9830,
-        "rsi": 49.36
-    },
-    {
-        "ticker": "228760",
-        "name": "지노믹트리",
-        "step": 3,
-        "price": 11640,
-        "rsi": 43.11
-    },
-    {
-        "ticker": "121440",
-        "name": "골프존홀딩스",
-        "step": 3,
-        "price": 6640,
-        "rsi": 80.58
+        "ticker": "200710",
+        "name": "에이디테크놀로지",
+        "step": 2,
+        "price": 25100,
+        "rsi": 29.0
     },
     {
         "ticker": "187660",
         "name": "페니트리움바이오",
         "step": 2,
-        "price": 5050,
-        "rsi": 29.18
+        "price": 4705,
+        "rsi": 26.27
     },
     {
-        "ticker": "054950",
-        "name": "제이브이엠",
-        "step": 3,
-        "price": 21700,
-        "rsi": 48.35
+        "ticker": "234340",
+        "name": "헥토파이낸셜",
+        "step": 2,
+        "price": 18200,
+        "rsi": 29.96
     },
     {
-        "ticker": "069540",
-        "name": "빛과전자",
-        "step": 3,
-        "price": 2295,
-        "rsi": 33.89
+        "ticker": "332570",
+        "name": "PS일렉트로닉스",
+        "step": 2,
+        "price": 4990,
+        "rsi": 26.4
     },
     {
-        "ticker": "017890",
-        "name": "한국알콜",
-        "step": 3,
-        "price": 11980,
-        "rsi": 51.91
+        "ticker": "462350",
+        "name": "이노스페이스",
+        "step": 2,
+        "price": 7740,
+        "rsi": 27.32
     },
     {
-        "ticker": "217730",
-        "name": "강스템바이오텍",
-        "step": 3,
-        "price": 2380,
-        "rsi": 41.01
+        "ticker": "180400",
+        "name": "DXVX",
+        "step": 2,
+        "price": 2145,
+        "rsi": 29.94
     },
     {
-        "ticker": "036030",
-        "name": "케이티알파",
+        "ticker": "194480",
+        "name": "데브시스터즈",
         "step": 3,
-        "price": 4500,
-        "rsi": 47.28
-    },
-    {
-        "ticker": "461300",
-        "name": "아이스크림미디어",
-        "step": 3,
-        "price": 16520,
-        "rsi": 48.44
-    },
-    {
-        "ticker": "058970",
-        "name": "엠로",
-        "step": 3,
-        "price": 17600,
-        "rsi": 38.0
-    },
-    {
-        "ticker": "018310",
-        "name": "삼목에스폼",
-        "step": 3,
-        "price": 14630,
-        "rsi": 36.43
-    },
-    {
-        "ticker": "100120",
-        "name": "뷰웍스",
-        "step": 3,
-        "price": 23950,
-        "rsi": 42.81
+        "price": 17160,
+        "rsi": 54.63
     },
     {
         "ticker": "073490",
         "name": "LIG아큐버",
-        "step": 3,
-        "price": 27850,
-        "rsi": 32.38
+        "step": 2,
+        "price": 25150,
+        "rsi": 28.0
     },
     {
         "ticker": "354320",
         "name": "알멕",
         "step": 2,
-        "price": 32450,
-        "rsi": 27.65
-    },
-    {
-        "ticker": "013120",
-        "name": "동원개발",
-        "step": 3,
-        "price": 2280,
-        "rsi": 46.36
-    },
-    {
-        "ticker": "119610",
-        "name": "인터로조",
-        "step": 3,
-        "price": 17500,
-        "rsi": 49.49
-    },
-    {
-        "ticker": "394420",
-        "name": "리센스메디컬",
-        "step": 3,
-        "price": 17900,
-        "rsi": 42.73
-    },
-    {
-        "ticker": "338840",
-        "name": "와이바이오로직스",
-        "step": 3,
-        "price": 12550,
-        "rsi": 39.01
-    },
-    {
-        "ticker": "126600",
-        "name": "BGF에코머티리얼즈",
-        "step": 3,
-        "price": 3060,
-        "rsi": 44.89
+        "price": 29750,
+        "rsi": 25.96
     },
     {
         "ticker": "036170",
         "name": "에이치엠넥스",
         "step": 2,
-        "price": 3080,
-        "rsi": 29.46
+        "price": 2715,
+        "rsi": 25.76
     },
     {
-        "ticker": "039830",
-        "name": "오로라",
-        "step": 3,
-        "price": 17310,
-        "rsi": 51.52
+        "ticker": "051370",
+        "name": "인터플렉스",
+        "step": 2,
+        "price": 6960,
+        "rsi": 28.4
     },
     {
-        "ticker": "274090",
-        "name": "켄코아에어로스페이스",
+        "ticker": "024800",
+        "name": "유성티엔에스",
         "step": 3,
-        "price": 12740,
-        "rsi": 33.63
+        "price": 4315,
+        "rsi": 48.99
+    },
+    {
+        "ticker": "474650",
+        "name": "링크솔루션",
+        "step": 2,
+        "price": 27450,
+        "rsi": 27.57
     },
     {
         "ticker": "049630",
         "name": "재영솔루텍",
         "step": 2,
-        "price": 7180,
-        "rsi": 27.81
+        "price": 6730,
+        "rsi": 25.14
     },
     {
-        "ticker": "079960",
-        "name": "동양이엔피",
-        "step": 3,
-        "price": 20750,
-        "rsi": 44.35
+        "ticker": "389020",
+        "name": "자람테크놀로지",
+        "step": 2,
+        "price": 22400,
+        "rsi": 28.59
     }
 ]
